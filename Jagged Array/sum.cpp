@@ -1,3 +1,5 @@
+// Create a jagged array and display the sum of elements in each row.
+
 #include<iostream>
 using namespace std;
 int main(){
@@ -14,22 +16,13 @@ int main(){
 	cout<<"ELEMENTS IN MATRIX FORM :: \n"<<endl;
 	for(int i=0; i<4; i++){
 		int *ptr=jagged[i];
-			for(int j=0; j<sizes[i]; j++){
-				cout<<*(ptr+j)<<" ";
-			}
-			cout<<endl;
-	}
-	cout<<"\n\n";
-		cout<<"SUM OF ROWS  :: \n"<<endl;
-	for(int i=0; i<4; i++){
-		int *ptr=jagged[i];
 			int sum=0;
 			for(int j=0; j<sizes[i]; j++){
-				sum+=*(ptr+j);
+				cout<<*(ptr+j)<<" ";
+					sum+=*(ptr+j);
 			}
-			
-			cout<<"SUM OF ELEMENTS  = "<<sum<<endl;
+			cout<<"SUM OF ELEMENTS OF ROW "<<i+1<<" :: "<<sum<<endl;
 			cout<<endl;
-		}
+	}
 	return 0;
 }
