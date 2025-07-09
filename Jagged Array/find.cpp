@@ -1,3 +1,6 @@
+//c++ program which compare the values of 1st row of 2d array with remainig values and 
+//print the values with their index value and the size of array minimum 3x3.
+
 #include<iostream>
 using namespace std;
 int main(){
