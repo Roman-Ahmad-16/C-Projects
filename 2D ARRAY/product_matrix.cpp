@@ -4,7 +4,7 @@ int main(){
 	
 	const int size=3;
 	
-	int A[size][size],B[size][size],sum[size][size];
+	int A[size][size],B[size][size],product[size][size]={0};
 	
 	cout<<"ENTER VALUES FOR FIRST MATRIX 3x3 :: ";
 	for(int i=0; i<size; i++){
@@ -13,6 +13,17 @@ int main(){
 		}
 	}
 	
+	cout<<endl;
+	
+	for(int i=0; i<size; i++){
+		for(int j=0; j<size; j++){
+			cout<<A[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	
+	cout<<endl;
+	
 	cout<<"ENTER VALUE FOR SECOND MATRIX 3x3 :: ";
 	for(int i=0; i<size; i++){
 		for(int j=0; j<size; j++){
@@ -20,17 +31,28 @@ int main(){
 		}
 	}
 	
+	cout<<endl;
 	
 	for(int i=0; i<size; i++){
 		for(int j=0; j<size; j++){
-			sum[i][j]=A[i][j]+B[i][j];
+			cout<<B[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	
+	cout<<endl;
+	
+	for(int i=0; i<size; i++){
+		for(int j=0; j<size; j++){
+			for(int k=0; k<size; k++)
+			product[i][j]+=A[i][k]*B[k][j];
 		}
 	}
 	
-	cout<<"SUM OF MATRIX :: "<<endl;
+	cout<<"PRODUCT OF MATRIX :: "<<endl;
 	for(int i=0; i<size; i++){
 		for(int j=0; j<size; j++){
-			cout<<sum[i][j]<<" ";
+			cout<<product[i][j]<<" ";
 		}
 		cout<<endl;
 	}
