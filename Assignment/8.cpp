@@ -1,5 +1,5 @@
 #include<iostream>
-#include<math.h>
+#include<cmath>
 using namespace std;
 
 class quadratic {
@@ -8,7 +8,7 @@ private:
     
 public:
     quadratic() {
-        cout << "\nEnter The Coffient : ";
+        cout << "\nEnter The Cofficient : ";
         cout << "\nEnter The Value Of A :";
         cin >> a;
         if (a == 0) {
@@ -22,7 +22,7 @@ public:
     }
     
     void print() {
-        cout << a << "x^2 + " << b << "x + " << c << " = @\n";
+        cout << a << "x^2 + " << b << "x + " << c << " = 0\n";
     }
     
     void solve() {
