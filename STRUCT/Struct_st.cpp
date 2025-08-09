@@ -53,10 +53,8 @@ int main(){
 	cout<<"OBTAIN MARKS = "<<obt_marks<<endl;
 	
 	float percentage=(obt_marks/(float)total_marks)*100;	
-//	cout<<"PERCENTAGE :: "<<percentage<<"%"<<endl;
 	
 	status=(percentage>=45) ? "Pass" : "Fail";
-//    (condition) ? value_if_true : value_if_false
 
 	student st("ROMAN" , 295 , marks , status );
 
@@ -87,7 +85,6 @@ int main(){
         fin >> a_status;
         fin.close();
 
-        // Create object from file and display
         student read_student(a_name, a_roll, a_marks, a_status);
         read_student.display_info();
         cout << "PERCENTAGE : " << a_percentage << "%" << endl;
