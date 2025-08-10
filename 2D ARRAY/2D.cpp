@@ -20,7 +20,7 @@ int main(){
 		for(int b=0; b<cols; b++){
 			cout<<arr[a][b]<<"\t";
 		}
-		
+		cout<<endl;
 	}
 	
 	for(int e=0; e<rows; e++){
