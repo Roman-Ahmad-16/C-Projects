@@ -24,7 +24,7 @@ class Student
 int main(){
 	
 	Student st;
-
+	
 	st.set_data(101, 87.5);
 	st.display();
 	

@@ -8,9 +8,10 @@ struct Student {
 };
 
 int main() {
-    Student s[3];  
+	
+	Student s[2];
 
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 2; i++) {
     	
     	cout << "\nStudent " << i + 1 << ":\n";
 
@@ -25,7 +26,7 @@ int main() {
     }
 
     cout << "\nStudent Details:\n";
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 2; i++) {
     	
     	cout << "\nStudent " << i + 1 << ":\n";
 
