@@ -12,7 +12,7 @@ public:
 
     void withdraw(int a)
     {
-        if (balance >=2 )
+        if (balance >= 2)
         {
             balance -= a;
             cout << "Balance is withdraw = " << balance << endl;
