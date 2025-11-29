@@ -8,9 +8,16 @@ class Person{
 		string name;
 		int age;
 		
+	Person(string name, int age)
+	{
+		this->name = name;
+		this->age = age;
+		cout<<"Hi , I am parent constructor"<<endl;
+	}
+	
 	Person()
 	{
-		cout<<"Hi , I am parent contructor"<<endl;
+		cout<<"Parent default constructor"<<endl;
 	}
 };
 
@@ -18,21 +25,23 @@ class Student : public Person{
 	public: 
 		int rollno;
 		
-		Student()
+	Student(string name, int age, int rollno) : Person(name, age)
 	{
-		cout<<"Hi , I am child contructor"<<endl;
+		this->rollno = rollno;
+		cout<<"Hi , I am child constructor"<<endl;
 	}
 		
 	void getInfo()
 	{
-		cout<<"Name"<<name<<endl;
-		cout<<"Age"<<age<<endl;
-		cout<<"Roll No"<<rollno<<endl;
+		cout<<"Name: "<<name<<endl;
+		cout<<"Age: "<<age<<endl;
+		cout<<"Roll No: "<<rollno<<endl;
 	}
 };
+
 int main()
 {
-	Student s1("Roman" , 19 , 295);
+	Student s1("Roman", 19, 295);
 	s1.getInfo();
 	
 	return 0;
