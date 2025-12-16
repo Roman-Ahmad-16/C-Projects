@@ -9,7 +9,7 @@ public:
     {
         salary = s;
     }
-    bool operator>(employee e)
+    bool operator > (employee e)
     {
         return salary > e.salary;
     }
