@@ -7,17 +7,17 @@
 .code
 
 first proc
-          mov al, 0
+          mov bl, 0
           mov cl, 5
                     
           l1:
-            add al, 1
-            mov dl, al
+            add bl, 1
+            mov dl, bl
             add dl, '0'
             mov ah, 02h
             int 21h
             
-            cmp al, cl
+            cmp bl, cl
             jbe l1
             
             mov ah, 4ch
