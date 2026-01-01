@@ -1,3 +1,7 @@
+// Static data member class ka hota hai, object ka nahi.
+// Wo already memory me maujood hota hai
+// Har object usi ek variable ko use karta hai
+
 #include <iostream>
 using namespace std;
 
