@@ -16,10 +16,6 @@ public:
 		cout << "Hi , I am parent constructor" << endl;
 	}
 
-	Person()
-	{
-		cout << "Parent default constructor" << endl;
-	}
 };
 
 class Student : public Person
