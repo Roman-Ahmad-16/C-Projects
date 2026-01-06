@@ -28,9 +28,9 @@ int main()
 {
     Counter c1(5);
     Counter c2 = c1++;
-
-    c1.display();
+    
     c2.display();
+    c1.display();
 
     return 0;
 }

@@ -11,7 +11,7 @@ public:
         value = v;
     }
 
-    Number operator++()
+    Number operator ++ ()
     {
         value = value + 1;
     }
@@ -25,14 +25,10 @@ public:
 int main()
 {
     Number n(5);
-    Number n2(6);
     n.display();
-    n2.display();
 
     ++n;
-    ++n2;
     n.display();
-    n2.display();
 
     return 0;
 }
