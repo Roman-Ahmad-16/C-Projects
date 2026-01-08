@@ -4,8 +4,8 @@
 .DATA
       MSG           DB 'ENTER A NUMBER TO CHECK =$'
       NUM           DB ?
-      MSG_PRIME     DB , 0DH, 0AH, 'NUMBER IS PRIME$'
-      MSG_NOT_PRIME DB , 0DH, 0AH, 'NUMBER IS NOT PRIME $'
+      MSG_PRIME     DB  13, 10, 'NUMBER IS PRIME$'
+      MSG_NOT_PRIME DB  13, 10, 'NUMBER IS NOT PRIME $'
 
 .CODE
 MAIN PROC
