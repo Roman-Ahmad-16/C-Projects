@@ -27,7 +27,6 @@ public:
         }
     }
 
-    // 2. Deep Copy Constructor
     Student(const Student &other)
     {
         name = other.name + " (Copy)";
