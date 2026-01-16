@@ -1,48 +1,72 @@
 #include <iostream>
 using namespace std;
-class bankAccount
+class BankAccount
 {
+private:
+    int balance;
+
 public:
-    int balance = 2000;
-    void deposit(int a)
+    BankAccount(int b = 0)
     {
-        balance += a;
-        cout << "Balance is deposit = 1" << balance << endl;
+        balance = b;
     }
 
-    void withdraw(int a)
+    BankAccount operator+(int amount)
     {
-        if (balance >= 2)
-        {
-            balance -= a;
-            cout << "Balance is withdraw = " << balance << endl;
-        }
-        else
-        {
-            cout << "Insufficient balance" << endl;
-        }
+        BankAccount temp;
+        temp.balance = balance + amount;
+        return temp;
+    }
+
+    BankAccount operator-(int amount)
+    {
+        BankAccount temp;
+        temp.balance = balance - amount;
+        return temp;
+    }
+
+    void operator=(BankAccount obj)
+    {
+        balance = obj.balance;
+    }
+
+    bool operator>=(BankAccount obj)
+    {
+        return balance >= obj.balance;
+    }
+    void display()
+    {
+        cout << "Balance: " << balance << endl;
     }
 };
-
 int main()
 {
-    bankAccount b;
+    int initialBalance, depositAmount, withdrawAmount;
 
-    int choice;
-    cout << "Enter your choice" << endl;
-    cout << "1 for deposit /n 2 for withdraw" << endl;
-    cin >> choice;
+    cout << "Enter initial balance: ";
+    cin >> initialBalance;
+    BankAccount accA(initialBalance);
+    BankAccount accB;
+    // Deposit
+    cout << "Enter deposit amount: ";
+    cin >> depositAmount;
+    accA = accA + depositAmount;
+    cout << "After Deposit ";
+    accA.display();
 
-    switch (choice)
-    {
-    case 1:
-        b.deposit(8000);
-        break;
-    case 2:
-        b.withdraw(2000);
-        break;
-    default:
-        cout << "Insufficient amount" << endl;
-    }
+    cout << "Enter withdrawal amount: ";
+    cin >> withdrawAmount;
+    accA = accA - withdrawAmount;
+    cout << "After Withdrawal ";
+    accA.display();
+
+    accB = accA;
+    cout << "Account B ";
+    accB.display();
+
+    if (accA >= accB)
+        cout << "Accoun A has greater or equal balance than Account B" << endl;
+    else
+        cout << "Account B has greater balance" << endl;
     return 0;
 }
