@@ -18,7 +18,36 @@
     EMP_DEL      DB '4. Delete Employee', 0DH, 0AH, '$'
     EMP_BACK     DB '5. Back To Main Menu', 0DH, 0AH, '$'
     
-        
+    ;--- ADD EMPLOYEE --- 
+    
+    EMP_ID   DB 0DH, 0AH, 'Enter Emplyee ID: $'
+    EMP_NAME DB 0DH, 0AH, 'Enter Name: $'
+    EMP_SAL  DB 0DH, 0AH, 'Enter Basic Salary: $'
+    SUCCESS  DB 0DH, 0AH, 'Employee Added Successfully!$', 0DH,0AH,'$'
+    
+    ;--- DATA BUFFERS ---
+    ;--- FORMAT: [MAX LENGTH , ACTUAL LENGTH , DATA SPACE] ---
+    
+    ID_IN   DB 6,0,6   DUP ('$')    ;MAX 5 DIGITS
+    NAME_IN DB 21,0,21 DUP ('$')    ;MAX 20 CHARACTERS
+    SAL_IN  DB 8,0,8   DUP ('$')    ;MAX 7 DIGITS
+    
+    ;--- EDIT EMPLOYEE---
+    
+    EDIT_EMP_MSG DB 0DH, 0AH, '--- Editing Current Record ---$', 0DH, 0AH, '$'
+    SUCCESS_EDIT DB 0DH, 0AH, 'Employee Edit Successfully!$'   , 0DH, 0AH, '$'
+    
+    ;--- VIEW EMPLOYEE ---
+    
+    VIEW_EMP_ID   DB 0DH, 0AH, 'ID OF EMPLOYEE: $'
+    VIEW_EMP_NAME DB 0DH, 0AH, 'NAME OF EMPLOYEE: $'
+    VIEW_EMP_SAL  DB 0DH, 0AH, 'SALARY OF EMPLOYEE: $'
+    
+    ;--- DELETE EMPLOYEE ---
+    
+    DEL_EMP_MSG DB 0DH, 0AH, 'RECORD DELETED SUCCESSFULLY!$', 0DH, 0AH, '$'
+    INVALID_REC     DB 0DH, 0AH, 'RECORD NOT FOUND!$'
+            
     ;--- PAYROLL MANAGEMENT ---
     
     P_MENU_MSG DB 0DH, 0AH, '--- PAYROLL MANAGEMENT ---' , 0DH, 0AH, '$'
@@ -42,7 +71,7 @@ MAIN PROC
     MOV AX, @DATA
     MOV DS, AX
     
-    ;MENU PRINT 
+    ;---------------- MENU PRINT ------------------------------- 
     
 DISPLAY_MENU:
     
@@ -66,7 +95,7 @@ DISPLAY_MENU:
     MOV AH, 09H
     INT 21H
        
-    ;USER INPUT
+    ;---------------- USER INPUT -----------------------------
     
     LEA DX, CHOICE
     MOV AH, 09H
@@ -75,7 +104,7 @@ DISPLAY_MENU:
     MOV AH, 01H
     INT 21H
     
-    ;CHECK
+    ;----------------- CHECKING INPUT ------------------------
     
     CMP AL, '1'
     JE  EMPLOYEE_MANAGEMENT
@@ -93,6 +122,8 @@ DISPLAY_MENU:
     MOV AH, 09H
     INT 21H    
     JMP DISPLAY_MENU    
+    
+    ;---------------------- EMPLOYEE_MANAGEMENT -------------------------
     
 EMPLOYEE_MANAGEMENT:
     
@@ -120,7 +151,7 @@ EMPLOYEE_MANAGEMENT:
     MOV AH, 09H
     INT 21H
     
-    ;USER INPUT
+    ;------------------- USER INPUT -----------------------------------
     
     LEA DX, CHOICE
     MOV AH, 09H
@@ -129,19 +160,19 @@ EMPLOYEE_MANAGEMENT:
     MOV AH, 01H
     INT 21H
     
-    ;CHECK
+    ;-------------------CHECKING INPUT --------------------------------
     
-    ;CMP AL, '1'
-    ;JE  EMP_ADD
+    CMP AL, '1'
+    JE ADD_EMP_SECTION
     
-    ;CMP AL, '2'
-    ;JE EMP_EDIT
+    CMP AL, '2'
+    JE EDIT_EMP_SECTION
     
-    ;CMP AL, '3'
-    ;JE EMP_VIEW
+    CMP AL, '3'
+    JE VIEW_EMP_SECTION
     
-    ;CMP AL, '4'
-    ;JE EMP_DELETE
+    CMP AL, '4'
+    JE DELETE_EMP_SECTION
     
     CMP AL, '5'
     JE DISPLAY_MENU
@@ -151,6 +182,153 @@ EMPLOYEE_MANAGEMENT:
     INT 21H    
     JMP EMPLOYEE_MANAGEMENT
     
+    ;----------------------- ADDING EMPLOYEE ---------------------------
+    
+ADD_EMP_SECTION:
+    
+    LEA DX, EMP_ID
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, ID_IN
+    MOV AH, 0AH
+    INT 21H
+    
+    LEA DX, EMP_NAME
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, NAME_IN
+    MOV AH, 0AH
+    INT 21H
+    
+    LEA DX, EMP_SAL
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, SAL_IN
+    MOV AH, 0AH
+    INT 21H
+    
+    LEA DX, SUCCESS
+    MOV AH, 09H
+    INT 21H
+    
+    JMP EMPLOYEE_MANAGEMENT
+    
+    ;----------------------- EDITING EMPLOYEE ---------------------------
+     
+EDIT_EMP_SECTION:
+    
+    LEA DX, EDIT_EMP_MSG
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, VIEW_EMP_ID
+    MOV AH, 09H 
+    INT 21H
+    
+    LEA DX, ID_IN
+    MOV AH, 0AH
+    INT 21H
+    
+    LEA DX, VIEW_EMP_NAME
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, NAME_IN
+    MOV AH, 0AH
+    INT 21H
+    
+    LEA DX, VIEW_EMP_SAL
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, SAL_IN
+    MOV AH, 0AH
+    INT 21H
+    
+    LEA DX, SUCCESS_EDIT
+    MOV AH, 09H
+    INT 21H
+    
+    JMP EMPLOYEE_MANAGEMENT
+    
+    ;----------------------- VIEW EMPLOYEE ---------------------------
+      
+VIEW_EMP_SECTION:
+    
+    CMP NAME_IN[1], 0
+    JE RECORD_NOT_FOUND
+    
+    LEA DX, VIEW_EMP_ID
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, ID_IN+2
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, VIEW_EMP_NAME
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, NAME_IN+2
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, VIEW_EMP_SAL
+    MOV AH, 09H
+    INT 21H
+    
+    LEA DX, SAL_IN+2
+    MOV AH, 09H
+    INT 21H
+    
+    JMP VIEW_EXIT
+    
+RECORD_NOT_FOUND:
+
+    LEA DX, INVALID_REC
+    MOV AH, 09H
+    INT 21H
+    
+VIEW_EXIT:
+    
+    MOV AH, 01H
+    INT 21H
+    JMP EMPLOYEE_MANAGEMENT
+    
+    ;----------------------- DELETING EMPLOYEE --------------------------- 
+    
+DELETE_EMP_SECTION:
+    
+    MOV ID_IN[1], 0
+    LEA DI, ID_IN+2
+    MOV CX, 5
+    MOV AL, '$'
+    REP STOSB
+    
+    MOV NAME_IN[1], 0
+    LEA DI, NAME_IN+2
+    MOV CX, 20
+    MOV AL, '$'
+    REP STOSB
+    
+    MOV SAL_IN[1], 0
+    LEA DI, SAL_IN+2
+    MOV CX, 7
+    MOV AL, '$'
+    REP STOSB
+        
+    LEA DX, DEL_EMP_MSG
+    MOV AH, 09H
+    INT 21H
+    
+    JMP EMPLOYEE_MANAGEMENT 
+
+    ;----------------------- PAYROLL_MANAGEMENT --------------------------- 
+               
 PAYROLL_MANAGEMENT:
     
     LEA DX, P_MENU_MSG
@@ -200,6 +378,8 @@ PAYROLL_MANAGEMENT:
     MOV AH, 09H
     INT 21H    
     JMP PAYROLL_MANAGEMENT
+    
+    ;----------------------- REPORTS_MANAGEMENT ---------------------------
     
 REPORTS_MENU:
             
