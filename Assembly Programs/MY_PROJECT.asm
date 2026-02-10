@@ -25,12 +25,23 @@
     EMP_SAL  DB 0DH, 0AH, 'Enter Basic Salary: $'
     SUCCESS  DB 0DH, 0AH, 'Employee Added Successfully!$', 0DH,0AH,'$'
     
+    EMP_MSG_FULL DB 0DH, 0AH, 'Storage Full! Cannot add more.$'
+    
+    ;--- ARRAYS ---
+    
+    MAX_RECORDS  EQU 10 ; CONSTANT
+    RECORD_COUNT DB  0
+        
+    EMP_IDS      DB 10 DUP(6  DUP('$'))
+    EMP_NAMES    DB 10 DUP(21 DUP('$'))
+    EMP_SALARIES DB 10 DUP(8  DUP('$'))
+        
     ;--- DATA BUFFERS ---
     ;--- FORMAT: [MAX LENGTH , ACTUAL LENGTH , DATA SPACE] ---
-    
-    ID_IN   DB 6,0,6   DUP ('$')    ;MAX 5 DIGITS
-    NAME_IN DB 21,0,21 DUP ('$')    ;MAX 20 CHARACTERS
-    SAL_IN  DB 8,0,8   DUP ('$')    ;MAX 7 DIGITS
+       
+    ID_IN   DB 6,0,6   DUP ('$')    
+    NAME_IN DB 21,0,21 DUP ('$')    
+    SAL_IN  DB 8,0,8   DUP ('$')    
     
     ;--- EDIT EMPLOYEE---
     
@@ -186,6 +197,14 @@ EMPLOYEE_MANAGEMENT:
     
 ADD_EMP_SECTION:
     
+    ;----------------------- CHECK STORAGE -----------------------------
+    
+    MOV AL, RECORD_COUNT
+    CMP AL, MAX_RECORDS
+    JGE FULL_ERROR
+    
+    ;----------------------- ID INPUT ----------------------------------
+    
     LEA DX, EMP_ID
     MOV AH, 09H
     INT 21H
@@ -194,6 +213,20 @@ ADD_EMP_SECTION:
     MOV AH, 0AH
     INT 21H
     
+    ;------------------------ CALCULATE OFFSET --------------------------
+    
+    MOV AL, RECORD_COUNT
+    MOV BL, 6
+    MUL BL
+    
+    LEA DI, EMP_IDS
+    ADD DI, AX
+    LEA SI, ID_IN + 2
+    MOV CL, ID_IN[1]
+    MOV CH, 0
+    REP MOVSB
+    
+    ;----------------------- NAME INPUT ---------------------------------- 
     LEA DX, EMP_NAME
     MOV AH, 09H
     INT 21H
@@ -202,6 +235,20 @@ ADD_EMP_SECTION:
     MOV AH, 0AH
     INT 21H
     
+    ;------------------------ CALCULATE OFFSET --------------------------
+    
+    MOV AL, RECORD_COUNT
+    MOV BL, 21
+    MUL BL
+    
+    LEA DI, EMP_NAMES
+    ADD DI, AX
+    LEA SI, NAME_IN + 2
+    MOV CL, NAME_IN[1]
+    MOV CH, 0
+    REP MOVSB
+    
+    ;----------------------- SALARY INPUT ----------------------------------
     LEA DX, EMP_SAL
     MOV AH, 09H
     INT 21H
@@ -210,11 +257,36 @@ ADD_EMP_SECTION:
     MOV AH, 0AH
     INT 21H
     
+    ;------------------------ CALCULATE OFFSET --------------------------
+    
+    MOV AL, RECORD_COUNT
+    MOV BL, 8
+    MUL BL
+    
+    LEA DI, EMP_SALARIES
+    ADD DI, AX
+    LEA SI, SAL_IN + 2
+    MOV CL, SAL_IN[1]
+    MOV CH, 0
+    REP MOVSB
+    
+    ;----------------------- SUCCESS ---------------------------------
+    
+    INC RECORD_COUNT
     LEA DX, SUCCESS
     MOV AH, 09H
     INT 21H
     
     JMP EMPLOYEE_MANAGEMENT
+    
+    ;----------------------- STORAGE FULL MESSAGE --------------------
+    
+FULL_ERROR:
+    
+    LEA DX, EMP_MSG_FULL
+    MOV AH, 09H
+    INT 21H
+    JMP DISPLAY_MENU
     
     ;----------------------- EDITING EMPLOYEE ---------------------------
      
@@ -258,36 +330,86 @@ EDIT_EMP_SECTION:
       
 VIEW_EMP_SECTION:
     
-    CMP NAME_IN[1], 0
-    JE RECORD_NOT_FOUND
+    ;CMP NAME_IN[1], 0
+    ;JE RECORD_NOT_FOUND
+    
+    CMP RECORD_COUNT, 0
+    JE  NO_RECORDS
+    
+    MOV CL, RECORD_COUNT
+    MOV CH, 0
+    MOV SI, 0
+    
+PRINT_LOOP:
+    
+    PUSH CX
+    
+    ;----------------------- PRINT ID -------------------------------
     
     LEA DX, VIEW_EMP_ID
     MOV AH, 09H
     INT 21H
     
-    LEA DX, ID_IN+2
+    MOV AX, SI
+    MOV BX, 6
+    MUL BX
+    
+    LEA DX, EMP_IDS
+    ADD DX, AX
     MOV AH, 09H
     INT 21H
+    
+    ;LEA DX, ID_IN+2
+    ;MOV AH, 09H
+    ;INT 21H
+    
+    ;----------------------- PRINT NAME -------------------------------
     
     LEA DX, VIEW_EMP_NAME
     MOV AH, 09H
     INT 21H
     
-    LEA DX, NAME_IN+2
+    MOV AX, SI
+    MOV BX, 21
+    MUL BX
+    
+    LEA DX, EMP_NAMES
+    ADD DX, AX
     MOV AH, 09H
     INT 21H
+    
+    ;LEA DX, NAME_IN+2
+    ;MOV AH, 09H
+    ;INT 21H
+    
+    ;----------------------- PRINT SALARY -------------------------------
     
     LEA DX, VIEW_EMP_SAL
     MOV AH, 09H
     INT 21H
     
-    LEA DX, SAL_IN+2
+    MOV AX, SI
+    MOV BX, 8
+    MUL BX
+    
+    LEA DX, EMP_SALARIES
+    ADD DX, AX
     MOV AH, 09H
     INT 21H
     
+    ;LEA DX, SAL_IN+2
+    ;MOV AH, 09H
+    ;INT 21H
+    
+    ;----------------------- NEXT RECORD ----------------------------
+    INC SI
+    POP CX
+    
+    LOOP PRINT_LOOP
+    
     JMP VIEW_EXIT
     
-RECORD_NOT_FOUND:
+NO_RECORDS:
 
     LEA DX, INVALID_REC
     MOV AH, 09H
