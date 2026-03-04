@@ -1,7 +1,7 @@
 .MODEL SMALL
 .STACK 100H
-                          ;A--> 97    a-->65
-                          ;B--> 98    b-->66
+                          ;A--> 65    a--> 97
+                          ;B--> 66    b--> 98
 .DATA
     msg  db 'Enter Lowercase letter: $'
     msg1 db 0dh,0ah,'uppercase letter: $'

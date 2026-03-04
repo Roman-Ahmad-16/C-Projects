@@ -1,3 +1,5 @@
+; SUM OF DIFFERENCES BETWEEN ARRAY
+
 .model small
 .stack 100h
 .data

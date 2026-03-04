@@ -20,12 +20,14 @@ MAIN PROC
         ADD DL, 30H
         MOV AH, 02H
         INT 21H
+
         CALL PRINT_SPACE
         
         MOV DL, B
         ADD DL, 30H
         MOV AH, 02H
         INT 21H
+        
         CALL PRINT_SPACE
         
         MOV CL, 10 
