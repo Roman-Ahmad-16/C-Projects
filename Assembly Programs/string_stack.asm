@@ -28,7 +28,7 @@ INPUT_LOOP:
     JMP INPUT_LOOP
 
 PREPARE_PRINT:
-
+                
     LEA DX, MSG2
     MOV AH, 09H
     INT 21H

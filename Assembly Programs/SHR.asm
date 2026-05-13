@@ -12,7 +12,7 @@ first proc
            
            MOV AH, 01H
            INT 21H
-           
+                                                      
            MOV NUM, AL
            SHR NUM, 1
            

@@ -1,5 +1,5 @@
-.MODEL SMALL
-.STACK 100H
+.MODEL SM*+ALL
+.STACK 1+00H
 
 .DATA
     MSG DB 'FIBONACCI SERIES: $'
@@ -43,7 +43,8 @@ MAIN PROC
         
         MOV AH, 0
         MOV AL, TEMP
-        MOV BL, 10
+        MOV BL, 10  +
+        
         DIV BL     
         
         MOV BH, AH   

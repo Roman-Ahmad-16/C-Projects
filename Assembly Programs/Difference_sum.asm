@@ -13,38 +13,37 @@ MAIN PROC
     MOV AX, @DATA
     MOV DS, AX
 
-    LEA SI, ARRAY
+    LEA SI, ARRAY     
     MOV CX, 3
-    MOV BL, 0
+    MOV BL, 0          
 
 DIFF:
 
-    MOV AL, [SI+1]
-    SUB AL, [SI]
+    MOV AL, [SI+1]     
+    SUB AL, [SI]        
 
     ADD BL, AL
     INC SI
 
     LOOP DIFF
 
-    LEA DX, RESULT
+    LEA DX, RESULT             
     MOV AH, 09H
     INT 21H
 
     mov ax, 0
     mov al, bl
     mov cx, 0
-
 convert_loop:
 
     mov bl, 10
     div bl
-
+                               
     push ax
     inc cx
 
     mov ah, 0
-    cmp al, 0
+    cmp al, 0                     
 
     jne convert_loop
 
