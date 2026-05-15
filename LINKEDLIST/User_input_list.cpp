@@ -173,26 +173,52 @@ class List {
 int main(){
 	List ll;
 	
-//	ll.push_front(3);
-//	ll.push_front(2);
-//	ll.push_front(1);
-//	ll.push_front(0);
+//		int n;
+//		cout<<"Enter number to print list = ";
+//		cin>>n;
+//		
+//	for(int i=0; i<n; i++) {
+//		int val;
+//		cout<<"Enter value to add node on start , Value enter at position->"<< i+1 <<" = ";
+//		cin>>val;
+//		ll.push_front(val);
+//	}
+//	
 //	ll.printll();
 	
-//	ll.deleteValue(2);
+//	int nu;
+//	cout<<"Enter number to delete = ";
+//	cin>>nu;
+//	ll.deleteValue(nu);
 //	ll.printll();
 	
 //	ll.pop_front();
 //	ll.printll();
 
-//	ll.insert(5,0);
+//	int val;
+//	cout<<"Enter value to insert = ";
+//	cin>>val;
+//	
+//	int pos;
+//	cout<<"Enter position to insert at = ";
+//	cin>>pos;
+//	
+//	ll.insert(val , pos);
 //	ll.printll();
 
 //	cout<<"Index of search item = "<<ll.search(2)<<endl;
 	
-//	ll.push_back(1);
-//	ll.push_back(2);
-//	ll.push_back(1);
+//	int n;
+//	cout<<"Enter number to print list = ";
+//	cin>>n;
+//	
+//	for(int i=0; i<n; i++){
+//		int val;
+//		cout<<"Enter value to add node on last , Value enter at position -> "<<i+1<<" = ";
+//		cin>>val;
+//		ll.push_back(val);
+//	}
+//	
 //	ll.printll();
 //	
 //	ll.pop_back();
