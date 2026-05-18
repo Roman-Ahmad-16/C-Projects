@@ -36,31 +36,6 @@ public:
         tail = newNode;
     }
 
-    Node* mergeLists(Node* l1, Node* l2) {
-
-        Node dummy(0);
-        Node* tail = &dummy;
-
-        while(l1 != NULL && l2 != NULL) {
-
-            if(l1->data <= l2->data) {
-                tail->next = l1;
-                l1 = l1->next;
-            }
-            else {
-                tail->next = l2;
-                l2 = l2->next;
-            }
-
-            tail = tail->next;
-        }
-
-        if(l1 != NULL) tail->next = l1;
-        if(l2 != NULL) tail->next = l2;
-
-        return dummy.next;
-    }
-
     Node* getMid(Node* head) {
 
         Node* slow = head;
@@ -74,20 +49,41 @@ public:
         return slow;
     }
 
-    Node* sortList(Node* head) {
+    Node* merge(Node* left, Node* right) {
+
+        if(left == NULL) return right;
+        if(right == NULL) return left;
+
+        if(left->data <= right->data) {
+
+            left->next = merge(left->next, right);
+
+            return left;
+        }
+        else {
+
+            right->next = merge(left, right->next);
+
+            return right;
+        }
+    }
+
+    Node* mergeSort(Node* head) {
 
         if(head == NULL || head->next == NULL)
             return head;
 
         Node* mid = getMid(head);
 
-        Node* right = mid->next;
+        Node* rightHead = mid->next;
+
         mid->next = NULL;
 
-        Node* left = sortList(head);
-        right = sortList(right);
+        Node* left = mergeSort(head);
 
-        return mergeLists(left, right);
+        Node* right = mergeSort(rightHead);
+
+        return merge(left, right);
     }
 
     void print(Node* head) {
@@ -105,7 +101,7 @@ int main() {
 
     Solution s;
 
-    s.push_back(9);
+    s.push_back(19);
     s.push_back(11);
     s.push_back(155);
 
@@ -115,7 +111,7 @@ int main() {
 
     s2.push_back(6);
     s2.push_back(20);
-    s2.push_back(4);
+    s2.push_back(490);
 
     Node* head2 = s2.head;
 
@@ -125,12 +121,14 @@ int main() {
     cout << "List 2 (unsorted): ";
     s2.print(head2);
 
-    head1 = s.sortList(head1);
-    head2 = s2.sortList(head2);
+    head1 = s.mergeSort(head1);
 
-    Node* merged = s.mergeLists(head1, head2);
+    head2 = s2.mergeSort(head2);
+
+    Node* merged = s.merge(head1, head2);
 
     cout << "Final Sorted Merged List: ";
+
     s.print(merged);
 
     return 0;
