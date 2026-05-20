@@ -13,6 +13,7 @@ public:
 };
 
 class Solution {
+	
 public:
 
     Node* head;
@@ -55,15 +56,10 @@ public:
         if(right == NULL) return left;
 
         if(left->data <= right->data) {
-
             left->next = merge(left->next, right);
-
             return left;
-        }
-        else {
-
+        }else {
             right->next = merge(left, right->next);
-
             return right;
         }
     }
@@ -74,13 +70,10 @@ public:
             return head;
 
         Node* mid = getMid(head);
-
         Node* rightHead = mid->next;
-
         mid->next = NULL;
-
+        
         Node* left = mergeSort(head);
-
         Node* right = mergeSort(rightHead);
 
         return merge(left, right);

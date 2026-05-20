@@ -13,7 +13,7 @@ public:
 };
 
 class Solution {
-
+	
 public:
 
     Node* head;
@@ -24,11 +24,11 @@ public:
         tail = NULL;
     }
 
-    void push_back(int val){
+    void push_back(int val) {
 
         Node* newNode = new Node(val);
 
-        if(head == NULL){
+        if(head == NULL) {
             head = tail = newNode;
             return;
         }

@@ -31,7 +31,6 @@ public:
             head = tail = newNode;
             return;
         }
-
         tail->next = newNode;
         tail = newNode;
     }
@@ -47,7 +46,6 @@ public:
             cout << temp->data << " -> ";
             temp = temp->next;
         }
-
         cout << "NULL" << endl;
     }
 };
@@ -57,18 +55,14 @@ bool search(Node* head, int key) {
     Node* temp = head;
 
     while (temp != NULL) {
-
         if (temp->data == key) {
             return true;
         }
-
         temp = temp->next;
     }
-
     return false;
 }
 
-/* ---------------- INTERSECTION (C) ---------------- */
 Node* intersection(Node* A, Node* B) {
 
     Node* C = NULL;
@@ -77,25 +71,20 @@ Node* intersection(Node* A, Node* B) {
     while (A != NULL) {
 
         if (search(B, A->data)) {
-
             Node* newNode = new Node(A->data);
-
+            
             if (C == NULL) {
                 C = tailC = newNode;
-            }
-            else {
+            }else {
                 tailC->next = newNode;
                 tailC = newNode;
             }
         }
-
         A = A->next;
     }
-
     return C;
 }
 
-/* ---------------- UNION (D) ---------------- */
 Node* unionList(Node* A, Node* B) {
 
     Node* D = NULL;
@@ -103,7 +92,6 @@ Node* unionList(Node* A, Node* B) {
 
     Node* temp = A;
 
-    /* INSERT ALL ELEMENTS OF A */
     while (temp != NULL) {
 
         Node* newNode = new Node(temp->data);
@@ -119,44 +107,35 @@ Node* unionList(Node* A, Node* B) {
         temp = temp->next;
     }
 
-    /* INSERT UNIQUE ELEMENTS OF B */
     temp = B;
 
     while (temp != NULL) {
 
         if (!search(D, temp->data)) {
-
             Node* newNode = new Node(temp->data);
 
             if (D == NULL) {
                 D = tailD = newNode;
-            }
-            else {
+            }else {
                 tailD->next = newNode;
                 tailD = newNode;
             }
         }
-
         temp = temp->next;
     }
-
     return D;
 }
 
-/* ---------------- PRINT OUTSIDE ---------------- */
 void print(Node* head) {
-
     Node* temp = head;
 
     while (temp != NULL) {
         cout << temp->data << " -> ";
         temp = temp->next;
     }
-
     cout << "NULL" << endl;
 }
 
-/* ---------------- MAIN ---------------- */
 int main() {
 
     LinkedList A, B;

@@ -43,23 +43,23 @@ int main()
     for(int i = 0; i < 12; i++)
     { 
 		if(!stack.isFull())  
-			{
-				stack.push(i); 
-				cout<<"Push value is = "<<i<<endl;
-     		}
-		 else 
+		{
+			stack.push(i); 
+			cout<<"Push value is = "<<i<<endl;
+     	}else 
          	cout <<endl<<"Stack is full, can't insert new element"<<endl;
     } 
     
-for(int i=0 ; i < 12 ; i++)
+	for(int i=0 ; i < 12 ; i++)
     {
-        if(!stack.isEmpty()) {
+        if(!stack.isEmpty()) 
+		{
 			cout <<endl<< "The popped element = " << stack.pop();
         }else{
 			cout <<endl<<"Stack is empty, can't pop"<<endl; 
 		}
     }
-//    cout<<stack.top();
+    return 0;
 }
  
 

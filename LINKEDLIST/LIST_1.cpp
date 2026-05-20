@@ -20,6 +20,7 @@ class List {
 		List(){
 			head=tail=NULL;
 		}
+		
 	void push_front(int val){
 		Node* newNode = new Node(val);
 		if(head == NULL){
@@ -173,11 +174,11 @@ class List {
 int main(){
 	List ll;
 	
-//	ll.push_front(3);
-//	ll.push_front(2);
-//	ll.push_front(1);
-//	ll.push_front(0);
-//	ll.printll();
+	ll.push_front(3);
+	ll.push_front(2);
+	ll.push_front(1);
+	ll.push_front(0);
+	ll.printll();
 	
 //	ll.deleteValue(2);
 //	ll.printll();
@@ -185,8 +186,8 @@ int main(){
 //	ll.pop_front();
 //	ll.printll();
 
-//	ll.insert(5,0);
-//	ll.printll();
+	ll.insert(5,2);
+	ll.printll();
 
 //	cout<<"Index of search item = "<<ll.search(2)<<endl;
 	
