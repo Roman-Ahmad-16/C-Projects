@@ -20,8 +20,7 @@ private:
 
 public:
     LinkedList() {
-        head = NULL;
-        tail = NULL;
+        head = tail =  NULL;
     }
 
     void push_back(int val) {
