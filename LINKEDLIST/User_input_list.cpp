@@ -173,18 +173,18 @@ class List {
 int main(){
 	List ll;
 	
-//		int n;
-//		cout<<"Enter number to print list = ";
-//		cin>>n;
-//		
-//	for(int i=0; i<n; i++) {
-//		int val;
-//		cout<<"Enter value to add node on start , Value enter at position->"<< i+1 <<" = ";
-//		cin>>val;
-//		ll.push_front(val);
-//	}
-//	
-//	ll.printll();
+		int n;
+		cout<<"Enter number to print list = ";
+		cin>>n;
+		
+	for(int i=0; i<n; i++) {
+		int val;
+		cout<<"Enter value to add node on start , Value enter at position->"<< i+1 <<" = ";
+		cin>>val;
+		ll.push_front(val);
+	}
+	
+	ll.printll();
 	
 //	int nu;
 //	cout<<"Enter number to delete = ";

@@ -20,8 +20,7 @@ public:
     Node* tail;
 
     Solution() {
-        head = NULL;
-        tail = NULL;
+        head = tail = NULL;
     }
 
     void push_back(int val) {

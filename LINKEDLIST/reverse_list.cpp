@@ -11,6 +11,26 @@ class Node {
 };
 class Solution {
 	public:
+		
+	Node* head;
+	Node* tail;
+	
+	Solution(){
+		head=tail=NULL;
+	}
+	
+    void push_back(int val) {
+
+        Node* newNode = new Node(val);
+
+        if(head == NULL) {
+            head = tail = newNode;
+            return;
+        }
+
+        tail->next = newNode;
+        tail = newNode;
+    }
 		Node* reverseList(Node* head) {
 			
 			Node* prev = NULL;
@@ -41,21 +61,21 @@ class Solution {
 };
 int main(){
 	
-	Node* head = new Node(1);
-	
-	head->next = new Node(2);
-	head->next->next = new Node(3);
-	head->next->next->next = new Node(4);
-	
-	Solution s;
+    Solution s;
+
+    s.push_back(1);
+    s.push_back(2);
+    s.push_back(3);
+    s.push_back(4);
+    s.push_back(5);
 	
 	cout << "Original List:\n";
-	s.print(head);
+	s.print(s.head);
 	
-	head = s.reverseList(head);
+	s.head = s.reverseList(s.head);
 	
 	cout << "Reversed List:\n";
-	s.print(head);
+	s.print(s.head);
 	
 	return 0;
 }

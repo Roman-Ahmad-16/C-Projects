@@ -11,6 +11,27 @@ class Node {
 };
 class Solution {
 	public:
+		
+	Node* head;
+	Node* tail;
+	
+	Solution(){
+	/	head=tail=NULL;
+	}
+	
+    void push_back(int val) {
+
+        Node* newNode = new Node(val);
+
+        if(head == NULL) {
+            head = tail = newNode;
+            return;
+        }
+
+        tail->next = newNode;
+        tail = newNode;
+    }
+    
 		Node* middle(Node* head) {
 			
 			Node* slow = head;
@@ -36,22 +57,19 @@ class Solution {
 		}
 };
 int main(){
-	
-	Node* head = new Node(1);
-	
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(4);
-    head->next->next->next->next = new Node(5);
-    head->next->next->next->next->next = new Node(6);
-    head->next->next->next->next->next->next = new Node(7);
-    
+	v*
     Solution s;
+
+    s.push_back(1);
+    s.push_back(2);
+    s.push_back(3);
+    s.push_back(4);
+    s.push_back(5);
     
     cout << "Original List:\n";
-    s.printLL(head);
+    s.printLL(s.head);
     
-    Node* middle = s.middle(head);
+    Node* middle = s.middle(s.head);
     cout<<"Middle value of List = "<<middle->data;
     
     return 0;
