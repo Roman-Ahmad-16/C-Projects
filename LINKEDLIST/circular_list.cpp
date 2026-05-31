@@ -1,156 +1,126 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-
-class Node 
-{
-public:
-    int get() 
-	{ 
-	return object; 
-	};
-    void set(int object) 
-	{ 
-	this->object = object; 
-	};
-
-    Node* getNext() 
-	{ 
-	return nextNode; 
-	};
-    void setNext(Node* nextNode) 
-	{ 
-	this->nextNode = nextNode; 
-	};
-
-private:
-    int object;
-    Node* nextNode;
+class Node{
+  	public:
+  		int data;
+  		Node* next;
+  	
+  	Node(int val){
+  		data = val ;
+  		next = NULL;
+	  }
 };
-
-class CircularLinkedList {
-public:
-    CircularLinkedList() 
-	{
-        head = new Node(); // Create head node
-        head->setNext(NULL); // Set next of head node to NULL
-        currentnode = NULL; // Initialize currentnode pointer to NULL
-        lastcurrentnode = NULL; // Initialize lastcurrentnode pointer to NULL
-    }
-
-    void addNode(int object) 
-	{
-        Node* newNode = new Node(); // Create a new node
-        newNode->set(object);
-
-        if (head->getNext() == NULL) // If list is empty 
-		{ 
-            head->setNext(newNode);
-            newNode->setNext(head);
-            currentnode = newNode;
-            lastcurrentnode = head;
-        } 
-		else 
-		{
-            newNode->setNext(currentnode->getNext());
-            currentnode->setNext(newNode);
-            lastcurrentnode = currentnode;
-            currentnode = newNode;
-        }
-    size++;
+class CircularList{
+	public:
+		Node* head;
+		Node* tail;
+		
+	CircularList(){
+		head = tail = NULL;
 	}
-
-    void removeNode() {
-        if (currentnode == NULL) 
-		{
-            cout << "No node to remove." << endl;
-            return;
-        }
-
-        if (currentnode == head->getNext()) // If removing the first node
-		{ 
-            head->setNext(currentnode->getNext());
-            delete currentnode;
-            currentnode = head->getNext();
-            lastcurrentnode = head;
-        } 
-		else 
-		{
-            lastcurrentnode->setNext(currentnode->getNext());
-            delete currentnode;
-            currentnode = lastcurrentnode->getNext();
-        }
-    size--;
-	}
-	int length()
-	{
-		return size;	
-	}
-    void displayList() 
-	{
-        if (head->getNext() == NULL) 
-		{
-            cout << "List is empty." << endl;
-            return;
-        }
-        Node* temp = head->getNext(); // Start from the first node after head
-        cout << "Circular Linked List: ";
-        while (temp != head) 
-		{ // Traverse until we reach back to head
-            cout << temp->get() << " ";
-            temp = temp->getNext();
-        }
-        cout << endl;
-    }
-    
-    int get()
-    {
-    	return getNext();
-	}
-
-public:
-    int size = 0;
-	Node* head;
-    Node* currentnode;
-    Node* lastcurrentnode;
-};
-
-int main() {
-    CircularLinkedList myList;
-	int N, m, q;    
-    cout<<"Enter the length of the list"<<endl;
-    cin>>N;
-    
-	// Adding nodes to the circular linked list
-    for (int a = 1; a <= N; a++)
-    {
-    	cout<<"Enter the value in list"<<endl;
-    	cin>>m;
-    	myList.addNode(m);	
-	}
-	cout<<"Length of the list is: "<<myList.length()<<endl;
-    
-    cout<<"Enter the quantum size for Leader Selection"<<endl;
-    cin>>q;
-    
-    while( myList.length() > 1 )
-    {
-    	for(int j = 1; j <= q; j++)
-    	{
-    		cout<<"Removed Node "<< myList.get();
-			myList.removeNode();
+	
+	void insert_head(int val) {
+		Node* newNode = new Node(val);
+		
+		if(tail == NULL){
+			head = tail = newNode;
+			tail->next = head;
+		} else {
+			newNode->next = head;
+			head = newNode;
+			tail->next = head;
 		}
-    	
 	}
-    // Displaying the circular linked list
-    myList.displayList();
+	
+	void insert_tail(int val) {
+		Node* newNode = new Node(val);
+		
+		if(tail == NULL) {
+			head = tail = newNode;
+			tail->next = head;
+		} else {
+			newNode->next = head ;
+			tail->next = newNode;
+			tail = newNode;
+		}
+	}
+	
+	void delete_head() {
+		if(head == NULL){
+			return;
+		} else if (head==tail) {
+			delete head;
+			head = tail = NULL;
+		} else {
+			Node* temp = head ;
+			head = head->next;
+			tail->next = head;
+			
+			temp->next = NULL; 
+			delete temp;
+		}
+	}
+	
+	void delete_tail() {
+		if(head==NULL) {
+			return;
+		} else if(head==tail){
+			delete head;
+			head = tail = NULL;
+		} else {
+			Node* temp = tail;
+			
+			Node* prev = head;
+			while(prev->next != tail) {
+				prev = prev->next;
+			}
+			
+			tail = prev;
+			tail->next = head;
+			
+			temp->next = NULL;
+			delete temp;
+		}
+	}
+	void print(){
+		
+		if (head == NULL ) {
+			return;
+		}
+		
+		cout<<head->data<<"->";
+		Node* temp = head->next;
+		
+		while(temp!=head) {
+			cout<<temp->data<<"->";
+			temp = temp->next;
+		}
+		cout<<temp->data<<endl;
+	}
+};
 
-//    // Removing the current node (2)
-//    myList.removeNode();
+int main(){
+	
+	CircularList CL;
+	
+	CL.insert_head(4);
+	CL.insert_head(3);
+	CL.insert_head(2);
+	CL.insert_head(1);
+	
+	CL.print();
+	
+	
+//	CL.insert_tail(4);
+//	CL.insert_tail(3);
+//	CL.insert_tail(2);
+//	CL.print();
 //	
-//	cout<<"Length of the list is: "<<myList.length()<<endl;
-//    // Displaying the circular linked list after removal
-//    myList.displayList();
-
-    return 0;
+//	CL.delete_head();
+//	CL.print();
+//	
+//	CL.delete_tail();
+//	CL.print();
+	
+	return 0;
 }
-
