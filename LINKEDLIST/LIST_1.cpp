@@ -109,7 +109,7 @@ class List {
 		
 		while(temp!=NULL) {
 			if(temp->data == key){
-				return idx;
+				return idx ;
 			}
 			temp=temp->next;
 			idx++;
@@ -175,9 +175,9 @@ int main(){
 	List ll;
 	
 	ll.push_front(3);
-	ll.push_front(2);
-	ll.push_front(1);
-	ll.push_front(0);
+	ll.push_front(4);
+	ll.push_front(3);
+	ll.push_front(4);
 	ll.printll();
 	
 //	ll.deleteValue(2);
@@ -186,10 +186,10 @@ int main(){
 //	ll.pop_front();
 //	ll.printll();
 
-	ll.insert(5,2);
-	ll.printll();
+//	ll.insert(5,2);
+//	ll.printll();
 
-//	cout<<"Index of search item = "<<ll.search(2)<<endl;
+	cout<<"Index of search item = "<<ll.search(3)<<endl;
 	
 //	ll.push_back(1);
 //	ll.push_back(2);
