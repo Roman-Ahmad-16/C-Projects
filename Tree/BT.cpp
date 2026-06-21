@@ -102,7 +102,7 @@ void lineOrder(Node *root)
 	q.push(root);
 	q.push(NULL);
 
-	while (q.size() > 0)
+	while (!q.empty())
 	{
 		Node *curr = q.front();
 		q.pop();
@@ -123,11 +123,11 @@ void lineOrder(Node *root)
 
 		cout << curr->data << " ";
 
-		if (curr->left != NULL)
+		if (curr->left)
 		{
 			q.push(curr->left);
 		}
-		if (curr->right != NULL)
+		if (curr->right)
 		{
 			q.push(curr->right);
 		}
@@ -140,24 +140,24 @@ int main()
 	vector<int> preorder = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
 
 	Node *root = buildTree(preorder);
-	// cout << root->data << endl;
-	// cout << root->left->data << endl;
-	// cout << root->right->data << endl;
+	cout << root->data << endl;
+	cout << root->left->data << endl;
+	cout << root->right->data << endl;
 
-	// preOrder(root);
-	// cout<< endl;
+	preOrder(root);
+	cout<< endl;
 
-	// inOrder(root);
-	// cout<<endl;
+	inOrder(root);
+	cout<<endl;
 
-	// postOrder(root);
-	// cout << endl;
+	postOrder(root);
+	cout << endl;
 
-	// levelOrder(root);
-	// cout << endl;
+	levelOrder(root);
+	cout << endl;
 
-	// lineOrder(root);
-	// cout << endl;
+	lineOrder(root);
+	cout << endl;
 
 	return 0;
 }
